@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calzados Pascotex</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style id="app-style">
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    
+    .shoe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-modal {
+      backdrop-filter: blur(5px);
+    }
+    
+    .size-btn.active {
+      background-color: #1a1a1a;
+      color: white;
+    }
+    
+    .color-option.active {
+      transform: scale(1.2);
+      outline: 2px solid #1a1a1a;
+    }
+    
+    .custom-loader {
+      border-top-color: #1a1a1a;
+      animation: spinner 0.8s linear infinite;
+    }
+    
+    @keyframes spinner {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .filter-tag {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      transition: all 0.3s ease;
+    }
+    
+    .whatsapp-btn:hover {
+      background-color: #128C7E;
+      transform: scale(1.05);
+    }
+    
+    .image-slider .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .image-slider .slide.active-slide {
+      opacity: 1;
+      z-index: 1;
+    }
+    
+    .modal-image-slider {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .modal-image-slider .modal-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal-image-slider .modal-slide.active-slide {
+      opacity: 1;
+      z-index: 1;
+    }
+    
+    .slide-dot {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .slide-dot.active-dot {
+      transform: scale(1.2);
+      background-opacity: 1;
+    }
+    
+    .slider-nav, .modal-slider-nav {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+    
+    .image-slider:hover .slider-nav,
+    .modal-image-slider:hover .modal-slider-nav {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-white shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold text-white bg-gray-600 bg-opacity-90 rounded-lg px-4 py-2">Calzados Pascotex<span class="text-blue-600"></span></h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="text-gray-600 hover:text-gray-900" id="open-filters-btn">
+            <i class="fas fa-sliders-h mr-2"></i>Filtros
+          </button>
+          <a href="javascript:void(0)" class="text-gray-600 hover:text-gray-900">
+            <i class="fas fa-user mr-1"></i>
+          </a>
+          <a href="javascript:void(0)" class="text-gray-600 hover:text-gray-900">
+            <span class="relative">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Hero section -->
+    <section class="mb-10">
+      <div class="bg-gray-900 rounded-2xl p-8 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-gray-600 opacity-90"></div>
+        <div class="absolute inset-0 bg-[url('https://cdn.pixabay.com/photo/2016/11/19/15/58/camera-1840054_1280.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+        <div class="relative z-10">
+          <h2 class="text-4xl font-bold mb-2">Actualizado Octubre 2025</h2>
+          <p class="text-xl opacity-80 mb-6">Seguridad y comfort para tu obra</p>
+          <div class="flex">
+            <a href="#catalogo" class="bg-white text-gray-900 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition-all">Ver catálogo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and filter section -->
+    <section class="mb-8">
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <div class="relative">
+            <input type="text" id="search-input" placeholder="Buscar por nombre o referencia..." class="w-full px-4 py-3 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <span class="absolute right-3 top-3 text-gray-400">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 items-center" id="active-filters">
+          <!-- Active filters will appear here -->
+        </div>
+      </div>
+    </section>
+    
+    <!-- Filters dialog -->
+    <div id="filters-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+      <div class="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold">Filtros</h3>
+          <button id="close-filters-btn" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="space-y-6">
+          <!-- Tipo de calzado -->
+          <div>
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Tipo de calzado</h4>
+            <div class="grid grid-cols-2 gap-2">
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="type" data-value="casual">Casual</button>
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="type" data-value="formal">Formal</button>
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="type" data-value="deportivo">Deportivo</button>
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="type" data-value="botas">Botas</button>
+            </div>
+          </div>
+          
+          <!-- Color -->
+          <div>
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Color</h4>
+            <div class="flex flex-wrap gap-2">
+              <button class="filter-btn w-6 h-6 rounded-full bg-black" data-filter="color" data-value="negro"></button>
+              <button class="filter-btn w-6 h-6 rounded-full bg-gray-700" data-filter="color" data-value="gris"></button>
+              <button class="filter-btn w-6 h-6 rounded-full bg-amber-700" data-filter="color" data-value="cafe"></button>
+              <button class="filter-btn w-6 h-6 rounded-full bg-blue-800" data-filter="color" data-value="azul"></button>
+              <button class="filter-btn w-6 h-6 rounded-full bg-white border" data-filter="color" data-value="blanco"></button>
+            </div>
+          </div>
+          
+          <!-- Tallas -->
+          <div>
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Talla</h4>
+            <div class="grid grid-cols-4 gap-2">
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="38">38</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="39">39</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="40">40</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="41">41</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="42">42</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="43">43</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="44">44</button>
+              <button class="filter-btn border rounded-md py-1 hover:bg-gray-100" data-filter="size" data-value="45">45</button>
+            </div>
+          </div>
+          
+          <!-- Precio -->
+          <div>
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Rango de precio</h4>
+            <div class="grid grid-cols-2 gap-2">
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="price" data-value="0-100">Hasta $100</button>
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="price" data-value="100-200">$100 - $200</button>
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="price" data-value="200-300">$200 - $300</button>
+              <button class="filter-btn border rounded-md py-2 hover:bg-gray-100" data-filter="price" data-value="300+">Más de $300</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 flex gap-3">
+          <button id="clear-filters-btn" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50">Limpiar filtros</button>
+          <button id="apply-filters-btn" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Aplicar filtros</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product catalog -->
+    <section id="catalogo">
+      <div class="mb-6 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Catálogo de zapatos</h2>
+        <div class="text-sm text-gray-600">
+          Mostrando <span id="product-count">12</span> productos
+        </div>
+      </div>
+      
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Products will be loaded here -->
+      </div>
+      
+      <div id="no-results" class="hidden py-12 text-center">
+        <i class="fas fa-search text-4xl text-gray-300 mb-3"></i>
+        <p class="text-xl text-gray-500">No se encontraron productos con los filtros seleccionados</p>
+        <button id="reset-search-btn" class="mt-4 text-blue-600 font-medium">Limpiar búsqueda</button>
+      </div>
+      
+      <div id="loading" class="py-12 flex justify-center items-center hidden">
+        <div class="custom-loader w-8 h-8 border-4 border-gray-200 rounded-full"></div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Product detail modal -->
+  <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 product-modal z-50 hidden overflow-y-auto">
+    <div class="flex min-h-full items-center justify-center p-4">
+      <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+        <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+        
+        <div id="modal-content" class="p-0">
+          <!-- Modal content will be dynamically loaded -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="bg-gray-900 text-white mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Calzados Pascotex<span class="text-blue-400"></span></h3>
+          <p class="text-gray-400">Seguridad y comfort para tu obra</p>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-medium mb-4">Enlaces rápidos</h4>
+          <ul class="space-y-2">
+            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white">Inicio</a></li>
+            <li><a href="#catalogo" class="text-gray-400 hover:text-white">Catálogo</a></li>
+            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white"></a></li>
+            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-medium mb-4">Contacto</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center"><i class="fas fa-map-marker-alt w-6"></i> Av. Tomas Flores 1430</li>
+            <li class="flex items-center"><i class="fas fa-phone w-6"></i> +54 9 11 6021-2989</li>
+            <li class="flex items-center"><i class="fas fa-envelope w-6"></i> Pascoquilmes2020@gmail.com</li>
+          </ul>
+          <div class="mt-4 flex space-x-4">
+            <a href="https://www.facebook.com/google" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/google" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.twitter.com/google" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 Pascotex. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script id="app-script">
+    // Products data
+    const products = [
+      {
+        id: 1,
+        name: "Botin Boris P/Acero",
+        reference: "F202",
+        price: 50.000,
+        image: "img/f202.JPEG",
+        image2: "img/f202.JPEG",
+      
+        description: "Botines Marcas Boris modelo F202 Punta de acero, ideal para trabajo en obras.",
+        type: "formal",
+        colors: ["negro", "cafe"],
+        sizes: [40, 41, 42, 43, 44],
+        rating: 4.8
+      },
+      {
+        id: 2,
+        name: "Botin Boris Antideslizante",
+        reference: "S3001",
+        price: 129.99,
+        image: "img/Boris3001NARANJA.JPEG",
+        image2: "img/S3001AZUL.JPEG",
+        description: "Botines marca Boris suela antideslizante, cubierto de cuero.",
+        type: "botas",
+        colors: ["cafe", "azul"],
+        sizes: [39, 40, 41, 42, 43],
+        
+      },
+      {
+        id: 3,
+        name: "Botin Boris P/Acero",
+        reference: "3050NS",
+        price: 50.000,
+        image: "img/3050NS1.JPEG",
+        image2: "img/3050NS2.JPEG",
+        description: "Botines con punta de acero, suela antideslizante, diseño cómodo y seguro.",
+        type: "botas",
+        colors: ["azul", "negro",],
+        sizes: [40, 41, 42, 43, 44, 45],
+        rating: 4.9
+      },
+      {
+        id: 4,
+        name: "Botin Boris Antideslizante",
+        reference: "F302",
+        price: 50.000,
+        image: "img/F302.JPEG",
+        image2: "img/F302.JPEG",
+        description: "Botin Boris ultra resistente, cubierto de cuero, con suela antideslizante.",
+        type: "botas",
+        colors: ["negro", "cafe"],
+        sizes: [40, 41, 42, 43, 44],
+        rating: 4.7
+      },
+      {
+        id: 5,
+        name: "Botin Boris P/acero",
+        reference: "F204",
+        price: 48.500,
+        image: "img/F204.JPEG",
+        image2: "img/F204.JPEG",
+        description: "Botin Boris con suela antideslizante, punta de acero.",
+        type: "casual",
+        colors: [,"negro", "gris"],
+        sizes: [39, 40, 41, 42, 43, 44],
+        rating: 4.6
+      },
+      {
+        id: 6,
+        name: "Botin Boris Antideslizante",
+        reference: "F304",
+        price: 49.800,
+        image: "img/F304.JPEG",
+        image2: "img/F304.JPEG",
+        description: "Botin Boris con suela antideslizante.",
+        type: "formal",
+        colors: [, "negro"],
+        sizes: [40, 41, 42, 43, 44],
+        rating: 4.8
+      },
+      {
+        id: 7,
+        name: "Botin Gamax Cuero Flor",
+        reference: "103MF/103ND",
+        price: 50.000,
+        image: "img/103MF.JPEG",
+        image2: "img/103ND.JPEG",
+        description: "Botas de senderismo resistentes al agua con suela antideslizante para las aventuras más exigentes.",
+        type: "botas",
+        colors: ["cafe", "gris"],
+        sizes: [40, 41, 42, 43, 44, 45],
+        rating: 4.9
+      },
+      {
+        id: 8,
+        name: "Zapato Gamax cuero P/Acero",
+        reference: "105mf",
+        price: 159.99,
+        image: "img/105MF.JPEG",
+        image2: "img/105MF.JPEG",
+        description: "Zapatos de cuero negro con punta de acero modelo sin cordones",
+        type: "botas",
+        colors: ["negro", ""],
+        sizes: [40, 41, 42, 43, 44, 45],
+        rating: 4.7
+      },
+      {
+        id: 9,
+        name: "Zapato Gamax Cuero Negro P/acero",
+        reference: "101ND",
+        price: 119.99,
+        image: "img/101ND.JPEG",
+        image2: "img/101ND.JPEG",
+        description: "Zapato Gamax cuero negro con punta de acero, modelo con cordones",
+        type: "casual",
+        colors: ["", "negro", ""],
+        sizes: [39, 40, 41, 42, 43],
+        rating: 4.5
+      },
+      {
+        id: 10,
+        name: "Botin Kamet",
+        reference: "Kamet",
+        price: 189.99,
+        image: "img/KametNegro.JPEG",
+        image2: "img/KametMarron.JPEG",
+        description: "Botines cubiertos de cuero de color marron o negro, con cordones y suela antideslizante",
+        type: "formal",
+        colors: ["negro", "cafe"],
+        sizes: [40, 41, 42, 43, 44],
+        rating: 4.8
+      },
+      {
+        id: 11,
+        name: "Botin Pegaso",
+        reference: "Cuero liso",
+        price: 219.99,
+        image: "img/PegasoCuero.JPEG",
+        image2: "img/PegasoNegro.JPEG",
+        description: "Botines Pegaso modelo cuero liso entero o tela y cuero.",
+        type: "botas",
+        colors: ["", "negro"],
+        sizes: [40, 41, 42, 43, 44, 45],
+        rating: 4.9
+      },
+      {
+        id: 12,
+        name: "Sin Stock",
+        reference: "TK",
+        price: 149.99,
+        image: "img/SinStock.JPG",
+        image2: "img/SinStock.JPG",
+        description: "Zapatillas de entrenamiento multifuncionales para gimnasio, crossfit y otras actividades de fitness.",
+        type: "deportivo",
+        colors: ["negro", "gris", "azul"],
+        sizes: [40, 41, 42, 43, 44],
+        rating: 4.7
+      }
+    ];
+
+    // Element references
+    const productsGrid = document.getElementById('products-grid');
+    const searchInput = document.getElementById('search-input');
+    const productCount = document.getElementById('product-count');
+    const noResults = document.getElementById('no-results');
+    const loading = document.getElementById('loading');
+    const resetSearchBtn = document.getElementById('reset-search-btn');
+    const productModal = document.getElementById('product-modal');
+    const modalContent = document.getElementById('modal-content');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const filtersModal = document.getElementById('filters-modal');
+    const openFiltersBtn = document.getElementById('open-filters-btn');
+    const closeFiltersBtn = document.getElementById('close-filters-btn');
+    const applyFiltersBtn = document.getElementById('apply-filters-btn');
+    const clearFiltersBtn = document.getElementById('clear-filters-btn');
+    const activeFilters = document.getElementById('active-filters');
+
+    // State
+    let currentFilters = {
+      search: '',
+      type: [],
+      color: [],
+      size: [],
+      price: []
+    };
+
+    // Load saved filters from localStorage
+    function loadSavedFilters() {
+      const savedFilters = localStorage.getItem('shoeFilters');
+      if (savedFilters) {
+        currentFilters = JSON.parse(savedFilters);
+        searchInput.value = currentFilters.search;
+        
+        // Mark active filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          const filterType = btn.dataset.filter;
+          const filterValue = btn.dataset.value;
+          
+          if (currentFilters[filterType] && currentFilters[filterType].includes(filterValue)) {
+            btn.classList.add('bg-blue-100', 'border-blue-500');
+          }
+        });
+        
+        // Show active filter tags
+        updateActiveFilterTags();
+      }
+    }
+
+    // Save filters to localStorage
+    function saveFilters() {
+      localStorage.setItem('shoeFilters', JSON.stringify(currentFilters));
+    }
+
+    // Update active filter tags display
+    function updateActiveFilterTags() {
+      activeFilters.innerHTML = '';
+      
+      // Add search tag if exists
+      if (currentFilters.search) {
+        const searchTag = createFilterTag('Búsqueda', currentFilters.search, () => {
+          currentFilters.search = '';
+          searchInput.value = '';
+          filterProducts();
+        });
+        activeFilters.appendChild(searchTag);
+      }
+      
+      // Add type filters
+      currentFilters.type.forEach(type => {
+        const typeLabel = {
+          'casual': 'Casual',
+          'formal': 'Formal',
+          'deportivo': 'Deportivo',
+          'botas': 'Botas'
+        }[type] || type;
+        
+        const typeTag = createFilterTag('Tipo', typeLabel, () => {
+          currentFilters.type = currentFilters.type.filter(t => t !== type);
+          filterProducts();
+        });
+        activeFilters.appendChild(typeTag);
+      });
+      
+      // Add color filters
+      currentFilters.color.forEach(color => {
+        const colorLabel = {
+          'negro': 'Negro',
+          'cafe': 'Café',
+          'gris': 'Gris',
+          'azul': 'Azul',
+          'blanco': 'Blanco'
+        }[color] || color;
+        
+        const colorTag = createFilterTag('Color', colorLabel, () => {
+          currentFilters.color = currentFilters.color.filter(c => c !== color);
+          filterProducts();
+        });
+        activeFilters.appendChild(colorTag);
+      });
+      
+      // Add size filters
+      currentFilters.size.forEach(size => {
+        const sizeTag = createFilterTag('Talla', size, () => {
+          currentFilters.size = currentFilters.size.filter(s => s !== size);
+          filterProducts();
+        });
+        activeFilters.appendChild(sizeTag);
+      });
+      
+      // Add price filters
+      currentFilters.price.forEach(price => {
+        const priceLabel = {
+          '0-100': 'Hasta $100',
+          '100-200': '$100 - $200',
+          '200-300': '$200 - $300',
+          '300+': 'Más de $300'
+        }[price] || price;
+        
+        const priceTag = createFilterTag('Precio', priceLabel, () => {
+          currentFilters.price = currentFilters.price.filter(p => p !== price);
+          filterProducts();
+        });
+        activeFilters.appendChild(priceTag);
+      });
+    }
+
+    // Create filter tag element
+    function createFilterTag(type, value, removeCallback) {
+      const tag = document.createElement('div');
+      tag.className = 'bg-gray-100 rounded-full py-1 px-3 flex items-center text-sm filter-tag';
+      tag.innerHTML = `
+        <span class="font-medium mr-1">${type}:</span>
+        <span class="mr-1">${value}</span>
+        <button class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      tag.querySelector('button').addEventListener('click', removeCallback);
+      return tag;
+    }
+
+    // Render products
+    function renderProducts(products) {
+      loading.classList.remove('hidden');
+      productsGrid.innerHTML = '';
+      
+      setTimeout(() => {
+        loading.classList.add('hidden');
+        
+        if (products.length === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+          
+          products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'bg-white rounded-lg overflow-hidden shadow-md shoe-card transition-all';
+            productCard.innerHTML = `
+              <div class="h-56 overflow-hidden relative">
+                <div class="image-slider w-full h-full relative">
+                  <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover slide active-slide">
+                  <img src="${product.image2}" alt="${product.name}" class="w-full h-full object-cover slide">
+                  <button class="slider-nav prev absolute top-1/2 left-2 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center">
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <button class="slider-nav next absolute top-1/2 right-2 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-lg font-semibold">${product.name}</h3>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">${product.reference}</p>
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-xl font-bold">$${product.price}</span>
+                  <div class="text-sm text-gray-500">
+                    ${product.sizes.slice(0, 3).join(', ')}${product.sizes.length > 3 ? '...' : ''}
+                  </div>
+                </div>
+                <button class="view-product-btn w-full bg-gray-900 text-white py-2 rounded-md hover:bg-gray-800 transition-colors" data-id="${product.id}">
+                  Ver detalles
+                </button>
+              </div>
+            `;
+            productsGrid.appendChild(productCard);
+            
+            // Add slider functionality
+            const slider = productCard.querySelector('.image-slider');
+            const slides = slider.querySelectorAll('.slide');
+            const prevBtn = slider.querySelector('.prev');
+            const nextBtn = slider.querySelector('.next');
+            
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            function showNextSlide() {
+              const activeSlide = slider.querySelector('.active-slide');
+              activeSlide.classList.remove('active-slide');
+              
+              if (activeSlide.nextElementSibling && activeSlide.nextElementSibling.classList.contains('slide')) {
+                activeSlide.nextElementSibling.classList.add('active-slide');
+              } else {
+                slides[0].classList.add('active-slide');
+              }
+            }
+            
+            function showPrevSlide() {
+              const activeSlide = slider.querySelector('.active-slide');
+              activeSlide.classList.remove('active-slide');
+              
+              if (activeSlide.previousElementSibling && activeSlide.previousElementSibling.classList.contains('slide')) {
+                activeSlide.previousElementSibling.classList.add('active-slide');
+              } else {
+                slides[slides.length - 1].classList.add('active-slide');
+              }
+            }
+            
+            // Touch events for swiping
+            slider.addEventListener('pointerdown', (e) => {
+              touchStartX = e.clientX;
+            });
+            
+            slider.addEventListener('pointerup', (e) => {
+              touchEndX = e.clientX;
+              handleSwipe();
+            });
+            
+            function handleSwipe() {
+              if (touchEndX < touchStartX - 50) {
+                showNextSlide(); // Swipe left
+              }
+              if (touchEndX > touchStartX + 50) {
+                showPrevSlide(); // Swipe right
+              }
+            }
+            
+            prevBtn.addEventListener('click', showPrevSlide);
+            nextBtn.addEventListener('click', showNextSlide);
+            
+            productCard.querySelector('.view-product-btn').addEventListener('click', () => {
+              openProductModal(product);
+            });
+          });
+        }
+        
+        productCount.textContent = products.length;
+      }, 500);
+    }
+
+    // Filter products
+    function filterProducts() {
+      let filteredProducts = [...products];
+      
+      // Filter by search term
+      if (currentFilters.search) {
+        const searchTerm = currentFilters.search.toLowerCase();
+        filteredProducts = filteredProducts.filter(product => 
+          product.name.toLowerCase().includes(searchTerm) || 
+          product.reference.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      // Filter by type
+      if (currentFilters.type.length > 0) {
+        filteredProducts = filteredProducts.filter(product => 
+          currentFilters.type.includes(product.type)
+        );
+      }
+      
+      // Filter by color
+      if (currentFilters.color.length > 0) {
+        filteredProducts = filteredProducts.filter(product => 
+          product.colors.some(color => currentFilters.color.includes(color))
+        );
+      }
+      
+      // Filter by size
+      if (currentFilters.size.length > 0) {
+        filteredProducts = filteredProducts.filter(product => 
+          product.sizes.some(size => currentFilters.size.includes(size.toString()))
+        );
+      }
+      
+      // Filter by price
+      if (currentFilters.price.length > 0) {
+        filteredProducts = filteredProducts.filter(product => {
+          return currentFilters.price.some(priceRange => {
+            if (priceRange === '0-100') return product.price <= 100;
+            if (priceRange === '100-200') return product.price > 100 && product.price <= 200;
+            if (priceRange === '200-300') return product.price > 200 && product.price <= 300;
+            if (priceRange === '300+') return product.price > 300;
+            return false;
+          });
+        });
+      }
+      
+      renderProducts(filteredProducts);
+      updateActiveFilterTags();
+      saveFilters();
+    }
+
+    // Open product modal
+    function openProductModal(product) {
+      modalContent.innerHTML = `
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 relative">
+            <div class="modal-image-slider relative">
+              <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover modal-slide active-slide">
+              <img src="${product.image2}" alt="${product.name}" class="w-full h-full object-cover modal-slide">
+              <button class="modal-slider-nav prev absolute top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-slider-nav next absolute top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-white bg-opacity-70 slide-dot active-dot"></span>
+                <span class="w-3 h-3 rounded-full bg-white bg-opacity-40 slide-dot"></span>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 p-6">
+            <h2 class="text-2xl font-bold">${product.name}</h2>
+            <p class="text-gray-600 mb-2">${product.reference}</p>
+            
+            <div class="text-3xl font-bold mb-4">$${product.price}</div>
+            
+            <p class="text-gray-700 mb-4">${product.description}</p>
+            
+            <div class="mb-4">
+              <h3 class="text-sm font-medium text-gray-700 mb-2">Colores disponibles</h3>
+              <div class="flex space-x-2">
+                ${product.colors.map(color => {
+                  const bgColors = {
+                    'negro': 'bg-black',
+                    'cafe': 'bg-amber-700',
+                    'gris': 'bg-gray-500',
+                    'azul': 'bg-blue-800',
+                    'blanco': 'bg-white border'
+                  };
+                  return `<div class="color-option w-6 h-6 rounded-full ${bgColors[color]} cursor-pointer"></div>`;
+                }).join('')}
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <h3 class="text-sm font-medium text-gray-700 mb-2">Tallas disponibles</h3>
+              <div class="flex flex-wrap gap-2">
+                ${product.sizes.map(size => 
+                  `<button class="size-btn w-10 h-10 border rounded-md flex items-center justify-center hover:border-gray-900">${size}</button>`
+                ).join('')}
+              </div>
+            </div>
+            
+            <a href="https://wa.me/541168962166?text=Hola,%20me%20interesa%20el%20modelo%20${product.name}%20(${product.reference}).%20¿Está%20disponible?" 
+               target="_blank" 
+               class="whatsapp-btn w-full text-white py-3 rounded-md text-center font-medium flex items-center justify-center">
+              <i class="fab fa-whatsapp mr-2 text-xl"></i> Comprar por WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+      
+      productModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      
+      // Add modal image slider functionality
+      const modalSlider = modalContent.querySelector('.modal-image-slider');
+      const modalSlides = modalSlider.querySelectorAll('.modal-slide');
+      const modalPrevBtn = modalSlider.querySelector('.prev');
+      const modalNextBtn = modalSlider.querySelector('.next');
+      const slideDots = modalSlider.querySelectorAll('.slide-dot');
+      
+      let modalTouchStartX = 0;
+      let modalTouchEndX = 0;
+      
+      function showNextModalSlide() {
+        const activeSlide = modalSlider.querySelector('.active-slide');
+        const activeDot = modalSlider.querySelector('.active-dot');
+        
+        activeSlide.classList.remove('active-slide');
+        activeDot.classList.remove('active-dot');
+        
+        if (activeSlide.nextElementSibling && activeSlide.nextElementSibling.classList.contains('modal-slide')) {
+          activeSlide.nextElementSibling.classList.add('active-slide');
+          slideDots[1].classList.add('active-dot');
+        } else {
+          modalSlides[0].classList.add('active-slide');
+          slideDots[0].classList.add('active-dot');
+        }
+      }
+      
+      function showPrevModalSlide() {
+        const activeSlide = modalSlider.querySelector('.active-slide');
+        const activeDot = modalSlider.querySelector('.active-dot');
+        
+        activeSlide.classList.remove('active-slide');
+        activeDot.classList.remove('active-dot');
+        
+        if (activeSlide.previousElementSibling && activeSlide.previousElementSibling.classList.contains('modal-slide')) {
+          activeSlide.previousElementSibling.classList.add('active-slide');
+          slideDots[0].classList.add('active-dot');
+        } else {
+          modalSlides[modalSlides.length - 1].classList.add('active-slide');
+          slideDots[1].classList.add('active-dot');
+        }
+      }
+      
+      // Touch events for modal swiping
+      modalSlider.addEventListener('pointerdown', (e) => {
+        modalTouchStartX = e.clientX;
+      });
+      
+      modalSlider.addEventListener('pointerup', (e) => {
+        modalTouchEndX = e.clientX;
+        handleModalSwipe();
+      });
+      
+      function handleModalSwipe() {
+        if (modalTouchEndX < modalTouchStartX - 50) {
+          showNextModalSlide(); // Swipe left
+        }
+        if (modalTouchEndX > modalTouchStartX + 50) {
+          showPrevModalSlide(); // Swipe right
+        }
+      }
+      
+      modalPrevBtn.addEventListener('click', showPrevModalSlide);
+      modalNextBtn.addEventListener('click', showNextModalSlide);
+      
+      // Add dot indicators functionality
+      slideDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          modalSlides.forEach(slide => slide.classList.remove('active-slide'));
+          slideDots.forEach(dot => dot.classList.remove('active-dot'));
+          
+          modalSlides[index].classList.add('active-slide');
+          dot.classList.add('active-dot');
+        });
+      });
+      
+      // Add event listeners for color and size selection
+      modalContent.querySelectorAll('.color-option').forEach(colorBtn => {
+        colorBtn.addEventListener('click', () => {
+          modalContent.querySelectorAll('.color-option').forEach(btn => btn.classList.remove('active'));
+          colorBtn.classList.add('active');
+        });
+      });
+      
+      modalContent.querySelectorAll('.size-btn').forEach(sizeBtn => {
+        sizeBtn.addEventListener('click', () => {
+          modalContent.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+          sizeBtn.classList.add('active');
+        });
+      });
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSavedFilters();
+      filterProducts();
+    });
+    
+    searchInput.addEventListener('input', () => {
+      currentFilters.search = searchInput.value;
+      filterProducts();
+    });
+    
+    resetSearchBtn.addEventListener('click', () => {
+      currentFilters = {
+        search: '',
+        type: [],
+        color: [],
+        size: [],
+        price: []
+      };
+      searchInput.value = '';
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-100', 'border-blue-500');
+      });
+      
+      filterProducts();
+    });
+    
+    closeModalBtn.addEventListener('click', () => {
+      productModal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+    
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) {
+        productModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+    
+    openFiltersBtn.addEventListener('click', () => {
+      filtersModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    });
+    
+    closeFiltersBtn.addEventListener('click', () => {
+      filtersModal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+    
+    filtersModal.addEventListener('click', (e) => {
+      if (e.target === filtersModal) {
+        filtersModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterType = btn.dataset.filter;
+        const filterValue = btn.dataset.value;
+        
+        // Toggle button style
+        btn.classList.toggle('bg-blue-100');
+        btn.classList.toggle('border-blue-500');
+        
+        // Update filters state
+        if (btn.classList.contains('bg-blue-100')) {
+          // Add filter
+          if (!currentFilters[filterType].includes(filterValue)) {
+            currentFilters[filterType].push(filterValue);
+          }
+        } else {
+          // Remove filter
+          currentFilters[filterType] = currentFilters[filterType].filter(value => value !== filterValue);
+        }
+      });
+    });
+    
+    applyFiltersBtn.addEventListener('click', () => {
+      filterProducts();
+      filtersModal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+    
+    clearFiltersBtn.addEventListener('click', () => {
+      currentFilters = {
+        search: currentFilters.search, // Keep search term
+        type: [],
+        color: [],
+        size: [],
+        price: []
+      };
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-100', 'border-blue-500');
+      });
+      
+      filterProducts();
+      filtersModal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+  </script>
+</body>
+</html>
